@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>My Website</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  </head>
+  <body>
+    {% include 'header.html' %}
+    <main>
+      <h1>Welcome to my website</h1>
+      <p>This is the main content of the website.</p>
+
+      <button class="btn btn-primary">허용</button>
+      <button class="btn btn-danger">거부</button>
+      <button class="btn btn-secondary">삭제</button>
+      
+
+    </main>
+    {% include 'footer.html' %}
+  </body>
+</html>
