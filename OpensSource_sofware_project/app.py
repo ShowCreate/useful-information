@@ -4,6 +4,10 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
+    return render_template('loading.html')
+
+@app.route('/main')
+def main():
     return render_template('index.html')
 
 @app.route('/process_form', methods=['POST'])
