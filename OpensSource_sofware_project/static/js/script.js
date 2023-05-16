@@ -6,10 +6,21 @@ function executeScript() {
         var button = document.querySelector(".s-button");
         button.style.display = "none";
       
-      // 스크립트 실행 후 10초 후에 다음 페이지로 이동
-      setTimeout(function() {
-        window.location.href = "/main";
-      }, 10000);
-    }, 0);
+      //여기에 정보를 크로울링 하는 \
+
+        // 파이썬 파일 실행 요청을 서버로 전송
+  fetch('/execute_python_script')
+    .then(response => {
+      if (response.ok) {
+        console.log('파이썬 파일 실행 요청이 성공적으로 전송되었습니다.');
+        window.location.href = '/main';
+      } else {
+        console.log('파이썬 파일 실행 요청이 실패하였습니다.');
+      }
+    })
+    .catch(error => {
+      console.error('오류 발생:', error);
+    });
+  }, );
   }
   
