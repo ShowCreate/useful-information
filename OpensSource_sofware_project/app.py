@@ -13,6 +13,14 @@ def index():
 def main():
     return render_template('index.html')
 
+@app.route('/contests')
+def contests():
+    return render_template('contests.html')
+
+@app.route('/issue')
+def isue():
+    return render_template('issue.html')
+
 @app.route('/process_form', methods=['POST'])
 def process_form():
     input_text = request.form.get('input_text')

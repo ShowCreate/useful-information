@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  {% include 'base/include.html' %}
 </head>
 <body-s>
   <div id="loading-overlay">
@@ -11,7 +11,5 @@
   <div class="center">
     <button id="execute-script-button" onclick="executeScript()" class="s-button">클릭하세요</button>
   </div>
-
-  <script src="/static/js/script.js"></script>
 </body-s>
 </html>
