@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, url_for, jsonify
+from static.db.db import get_db_connection
 import subprocess
 
 app = Flask(__name__)
@@ -13,9 +14,26 @@ def index():
 def main():
     return render_template('index.html')
 
+
+
 @app.route('/contests')
 def contests():
-    return render_template('contests.html')
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    # contests 테이블에서 데이터 가져오기
+    query = "SELECT * FROM contests"
+    cursor.execute(query)
+    contests = cursor.fetchall()
+
+    # 연결 종료
+    cursor.close()
+    conn.close()
+
+    # 템플릿에 contests 데이터 전달하여 렌더링
+    return render_template("contests.html", contests=contests)
+
+
 
 @app.route('/issue')
 def isue():
