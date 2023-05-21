@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, url_for, jsonify
-from static.db.db import get_db_connection
+from static.db.contestsdb import get_db_connection
 import subprocess
 
 app = Flask(__name__)
@@ -14,7 +14,10 @@ def index():
 def main():
     return render_template('index.html')
 
-
+@app.route('/redirect/<domain>')
+def redirect_to_domain(domain):
+    # 특정 도메인으로 리다이렉트
+    return redirect(domain)
 
 @app.route('/contests')
 def contests():
@@ -22,7 +25,7 @@ def contests():
     cursor = conn.cursor()
 
     # contests 테이블에서 데이터 가져오기
-    query = "SELECT * FROM contests"
+    query = "SELECT * FROM contests ORDER BY idx DESC"
     cursor.execute(query)
     contests = cursor.fetchall()
 
@@ -33,11 +36,29 @@ def contests():
     # 템플릿에 contests 데이터 전달하여 렌더링
     return render_template("contests.html", contests=contests)
 
+@app.route('/redirect_domain/<domain>')
+def redirect_domain(domain):
+    return redirect(domain)
+
 
 
 @app.route('/issue')
 def isue():
-    return render_template('issue.html')
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    # contests 테이블에서 데이터 가져오기
+    query = "SELECT * FROM issue"
+    cursor.execute(query)
+    issue = cursor.fetchall()
+
+    # 연결 종료
+    cursor.close()
+    conn.close()
+
+    return render_template('issue.html', issue=issue)
+
+
 
 @app.route('/process_form', methods=['POST'])
 def process_form():

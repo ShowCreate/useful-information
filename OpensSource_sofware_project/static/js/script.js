@@ -24,3 +24,7 @@ function executeScript() {
   }, );
   }
   
+  function openDomain(domain) {
+    // 새 창에서 도메인 열기
+    window.open(domain, '_blank');
+  }

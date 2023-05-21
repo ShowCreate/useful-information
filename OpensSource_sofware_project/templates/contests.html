@@ -9,34 +9,44 @@
     <main>
       <h1>대회 및 공모전 정보.</h1>
 
-      <table>
-        <thead>
-            <tr>
-                <th>Index</th>
-                <th>Title</th>
-                <th>Domain</th>
-                <th>Info</th>
-                <th>Date First</th>
-                <th>Date Last</th>
-                <th>Image URL</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for contest in contests %}
-                <tr>
-                    <td>{{ contest[0] }}</td>
-                    <td>{{ contest[1] }}</td>
-                    <td>{{ contest[2] }}</td>
-                    <td>{{ contest[3] }}</td>
-                    <td>{{ contest[4] }}</td>
-                    <td>{{ contest[5] }}</td>
-                    <td>{{ contest[6] }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-
-      {% include 'base/footer.html' %}
+      <div class="card-container">
+        {% for contest in contests %}
+        <div class="card" onclick="openDomain('{{ contest[2] }}');">
+            <div class="card-header">
+              <h3 class="card-title">
+                {% if contest[1]|length > 11 %}
+                  {{ contest[1][:11] + '...' }}
+                {% else %}
+                  {{ contest[1] }}
+                {% endif %}
+              </h3>
+            </div>
+            <div class="card-body">
+              <div class="card-image">
+                <img class="card-image-img" src="{{ contest[6] }}" alt="Card Image" onerror="this.src='/static/img/unknown.png'">
+              </div>
+              <p class="card-text">
+                {% if contest[3]|length > 45 %}
+                  {{ contest[3][:45] + '...' }}
+                {% else %}
+                  {{ contest[3] }}
+                {% endif %}
+              </p>
+              <div class="card-dates">
+                <span class="date-label">Date First:</span>
+                <span class="date-value">{{ contest[4] }}</span>
+                <span class="date-label">Date Last:</span>
+                <span class="date-value">{{ contest[5] }}</span>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      
+      
+      
+      
+    
     </main>
   </body>
 </html>
