@@ -29,16 +29,40 @@ info_endDays = []
 info_imgUrls = []
 
 field = [20, 21] # 크롤링할 분야 설정 (웹/모바일/IT/게임/소프트웨어)
+page = 1 # 크롤링할 page 개수 설정
+n = 5 # page 내 크롤링할 page 개수 설정
 
 for i in field: 
-    page = 1 # 크롤링할 page 갯수 설정 
     while (page > 0):    
-        driver.get("https://www.wevity.com/?c=find&s=1&gub=1&cidx={}&gp={}".format(i, page))  # 크롤링하려는 웹 페이지 URL 입력
+        driver.get('https://www.wevity.com/?c=find&s=1&gub=1&cidx={}&gp={}'.format(i, page))  # 크롤링하려는 웹 페이지 URL 입력
         driver.implicitly_wait(5) # 웹 페이지 로딩 5초 기다림
 
-        for j in range(2, 10):
+        for j in range(2, n + 1):
             driver.find_element(by=By.XPATH, value='//*[@id="container"]/div[2]/div[1]/div[2]/div[3]/div/ul/li[%d]/div[1]/a' %j).click()
             driver.implicitly_wait(5)
+            
+            # 제목 추출
+            title = driver.find_element(by=By.XPATH, value='//*[@id="container"]/div[2]/div[1]/div[2]/div/div[1]/h6')
+            info_titles.append(title.text)
+            
+            # 도메인 추출
+            info_domains.append(driver.current_url)
+            
+            # 정보 추출
+            description = driver.find_element(by=By.XPATH, value='//*[@id="container"]/div[2]/div[1]/div[2]/div/div[2]/div[4]')
+            info_descriptions.append(description.text)
+
+            # 접수일, 마감일 추출
+            Day = driver.find_element(by=By.XPATH, value='//*[@id="container"]/div[2]/div[1]/div[2]/div/div[2]/div[2]/ul/li[5]')
+            startDay = Day.text[5:15] # 시작일
+            endDay = Day.text[18:28] # 마감일
+            info_startDays.append(startDay)
+            info_endDays.append(endDay)
+
+            # 이미지 주소 추출
+            img_url = driver.find_element(by=By.XPATH, value='//*[@id="container"]/div[2]/div[1]/div[2]/div/div[2]/div[1]/div[1]/img').get_attribute("src")
+            info_imgUrls.append(img_url)
+
             driver.back() # 뒤로 가기
         # domain = driver.find_element(By.XPATH, '/html/body/div[2]/div[4]/div[2]/div[1]/div[2]/div[3]/div/ul/li[2]/div[1]/a')
 
@@ -55,13 +79,3 @@ for i in field:
 
 # 크롤러 종료
 driver.quit()
-
-"""
-# selenium 사용법
-driver.find_element(By.CSS_SELECTOR, "CSS선택자")
-driver.find_element(By.XPATH, "XPATH")
-driver.find_element(By.NAME, "NAME속성값")
-driver.find_element(By.CLASS_NAME, "CLASS속성값")
-driver.find_element(By.LINK_TEXT, "LINK텍스트")
-driver.find_element(By.ID, "ID속성값")
-"""
