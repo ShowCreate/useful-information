@@ -26,16 +26,16 @@
                 <img class="card-image-img" src="{{ contest[6] }}" alt="Card Image" onerror="this.src='/static/img/unknown.png'">
               </div>
               <p class="card-text">
-                {% if contest[3]|length > 45 %}
-                  {{ contest[3][:45] + '...' }}
+                {% if contest[3]|length > 55 %}
+                  {{ contest[3][:55] + '...' }}
                 {% else %}
                   {{ contest[3] }}
                 {% endif %}
               </p>
               <div class="card-dates">
-                <span class="date-label">Date First:</span>
-                <span class="date-value">{{ contest[4] }}</span>
-                <span class="date-label">Date Last:</span>
+                <span class="date-label">접수 시작일:</span>
+                <span class="date-value">{{ contest[4] }}</span><br>
+                <span class="date-label">접수 마감일:</span>
                 <span class="date-value">{{ contest[5] }}</span>
               </div>
             </div>

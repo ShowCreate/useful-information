@@ -172,14 +172,14 @@ body-s {
 .card-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 
 .card {
   width: calc(100% / 7 - 20px); /* 카드 너비를 화면 비율에 맞게 조정 */
   margin-bottom: 20px;
-  margin-left: 3px;
-  margin-right: 3px;
+  margin-left: 10px;
+  margin-right: 10px;
   background-color: #f0f0f0;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -241,7 +241,7 @@ body-s {
 
 .card-header {
   padding: 10px;
-  background-color: #333;
+  background-color: #5e5e5e;
   color: #fff;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;

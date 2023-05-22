@@ -25,7 +25,7 @@ def contests():
     cursor = conn.cursor()
 
     # contests 테이블에서 데이터 가져오기
-    query = "SELECT * FROM contests ORDER BY idx DESC"
+    query = "SELECT * FROM contests WHERE date_last >= CURDATE() ORDER BY ABS(DATEDIFF(date_last, CURDATE())) ASC, idx DESC"
     cursor.execute(query)
     contests = cursor.fetchall()
 
