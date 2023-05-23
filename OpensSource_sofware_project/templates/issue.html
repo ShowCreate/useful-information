@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {% include 'base/include.html' %}
+    <title>My Website</title>
+  </head>
+  <body>
+    {% include 'base/header.html' %}
+    <main>
+      <h1>정보보호 보안 뉴스.</h1>
+
+      <table>
+        <thead>
+            <tr>
+                <th>Index</th>
+                <th>Title</th>
+                <th>Domain</th>
+                <th>Info</th>
+                <th>Date First</th>
+                <th>Date Last</th>
+                <th>Image URL</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for issue in issue %}
+                <tr>
+                    <td>{{ issue[0] }}</td>
+                    <td>{{ issue[1] }}</td>
+                    <td>{{ issue[2] }}</td>
+                    <td>{{ issue[3] }}</td>
+                    <td>{{ issue[4] }}</td>
+                    <td>{{ issue[5] }}</td>
+                    <td>{{ issue[6] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+      {% include 'base/footer.html' %}
+    </main>
+  </body>
+</html>
