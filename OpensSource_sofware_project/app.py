@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, url_for, jsonify
+from flask import Flask, render_template, request, jsonify
 from static.db.contestsdb import get_db_connection
 import subprocess
 
@@ -71,7 +71,7 @@ def process_form():
 @app.route('/execute_python_script')
 def execute_python_script():
     # 파이썬 파일 실행
-    subprocess.call(['python', 'static/py/script.py'])
+    subprocess.call(['python', 'static/db/wevity_crawling.py'])
     
         # 응답 생성
     response = {
