@@ -286,3 +286,8 @@ body-s {
 .card-link:hover {
   text-decoration: underline;
 }
+
+.card-dates span {
+  position: absolute;
+  bottom: 0;
+}

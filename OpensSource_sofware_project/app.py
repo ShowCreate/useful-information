@@ -42,21 +42,22 @@ def redirect_domain(domain):
 
 
 
-@app.route('/issue')
-def isue():
+@app.route('/jobs')
+def jobs():
     conn = get_db_connection()
     cursor = conn.cursor()
 
     # contests 테이블에서 데이터 가져오기
-    query = "SELECT * FROM issue"
+    query = "SELECT * FROM jobs"
     cursor.execute(query)
-    issue = cursor.fetchall()
+    jobs = cursor.fetchall()
 
     # 연결 종료
     cursor.close()
     conn.close()
 
-    return render_template('issue.html', issue=issue)
+    return render_template('jobs.html', jobs=jobs)
+
 
 
 

@@ -24,7 +24,7 @@ info_imgUrls = []
 
 field = [20, 21]  # 크롤링할 분야 설정 (웹/모바일/IT/게임/소프트웨어)
 page = 1  # 크롤링할 페이지 개수 설정
-n = 3  # 페이지 내 크롤링할 항목 개수 설정
+n = 10  # 페이지 내 크롤링할 항목 개수 설정
 
 def wevity_crawling():
     for i in field:
@@ -62,11 +62,17 @@ def save_to_database():
     cursor = conn.cursor()
 
     for i in range(len(info_titles)):
-        cursor.execute("INSERT INTO contests (title, domain, info, date_first, date_last, image_url) VALUES (%s, %s, %s, %s, %s, %s)",
-                       (info_titles[i], info_domains[i], info_descriptions[i], info_startDays[i], info_endDays[i], info_imgUrls[i]))
+        title = info_titles[i]
+        cursor.execute("SELECT COUNT(*) FROM contests WHERE title = %s", (title,))
+        count = cursor.fetchone()[0]
+        
+        if count == 0:
+            cursor.execute("INSERT INTO contests (title, domain, info, date_first, date_last, image_url) VALUES (%s, %s, %s, %s, %s, %s)",
+                           (info_titles[i], info_domains[i], info_descriptions[i], info_startDays[i], info_endDays[i], info_imgUrls[i]))
     
     conn.commit()  # 변경사항을 데이터베이스에 반영
     conn.close()  # 데이터베이스 연결 종료
+
 
 wevity_crawling()
 save_to_database()
