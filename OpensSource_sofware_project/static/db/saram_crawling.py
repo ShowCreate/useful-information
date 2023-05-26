@@ -64,12 +64,20 @@ def personin_crawling():
                 qualification = driver.find_element(by=By.XPATH, value='//*[@id="content"]/div[3]/section[1]/div[1]/div[2]/div/div[1]/dl[%d]/dd/strong' %qualification_repeat)
                 info_personin_qualifications.append(qualification.text)
 
-            # 근무 형태, 급여, 근무 일시, 근무 지역 
-            condition1 = driver.find_element(by=By.XPATH, value='//*[@id="content"]/div[3]/section[1]/div[1]/div[2]/div/div[1]/dl[3]/dd/strong')
-            info_personin_conditions.append(condition1.text)
-            for condition_repeat in range(1, 4):
-                condition2 = driver.find_element(by=By.XPATH, value='//*[@id="content"]/div[3]/section[1]/div[1]/div[2]/div/div[2]/dl[%d]/dd' %condition_repeat)
-                info_personin_conditions.append(condition2.text)
+            # 근무 형태 (condition)
+                try:
+                    condition1 = driver.find_element(by=By.XPATH, value='//*[@id="content"]/div[3]/section[1]/div[1]/div[2]/div/div[1]/dl[3]/dd/strong')
+                    info_personin_conditions.append(condition1.text)
+                except:
+                    pass
+            
+            # 급여, 근무 일시, 근무 지역 (condition)
+            for condition2_repeat in range(1, 4):
+                try:
+                    condition2 = driver.find_element(by=By.XPATH, value='//*[@id="content"]/div[3]/section[1]/div[1]/div[2]/div/div[2]/dl[%d]/dd' %condition2_repeat)
+                    info_personin_conditions.append(condition2.text)
+                except:
+                    pass
             
             # 접수 마감일
             deadline = driver.find_element(by=By.CSS_SELECTOR, value='div.jv_cont.jv_howto > div > div > dl > dd:nth-child(4)')
@@ -89,7 +97,6 @@ def personin_crawling():
             time.sleep(1)
 
     driver.quit()
-
 
 
 # 데이터 베이스 저장 함수
