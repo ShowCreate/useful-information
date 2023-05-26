@@ -65,11 +65,12 @@ def personin_crawling():
                 info_personin_qualifications.append(qualification.text)
 
             # 근무 형태 (condition)
-                try:
-                    condition1 = driver.find_element(by=By.XPATH, value='//*[@id="content"]/div[3]/section[1]/div[1]/div[2]/div/div[1]/dl[3]/dd/strong')
-                    info_personin_conditions.append(condition1.text)
-                except:
-                    pass
+            try:
+                condition1 = driver.find_element(by=By.XPATH, value='//*[@id="content"]/div[3]/section[1]/div[1]/div[2]/div/div[1]/dl[3]/dd/strong')
+                info_personin_conditions.append(condition1.text)
+            except:
+                info_personin_conditions.append("")
+                pass
             
             # 급여, 근무 일시, 근무 지역 (condition)
             for condition2_repeat in range(1, 4):
@@ -77,6 +78,7 @@ def personin_crawling():
                     condition2 = driver.find_element(by=By.XPATH, value='//*[@id="content"]/div[3]/section[1]/div[1]/div[2]/div/div[2]/dl[%d]/dd' %condition2_repeat)
                     info_personin_conditions.append(condition2.text)
                 except:
+                    info_personin_conditions.append("")
                     pass
             
             # 접수 마감일
