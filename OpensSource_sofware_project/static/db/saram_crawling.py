@@ -97,23 +97,18 @@ def personin_crawling():
             # 맨 처음 탭으로 돌아가기
             driver.switch_to.window(driver.window_handles[0])
             time.sleep(1)
-
     driver.quit()
-
 
 # 데이터 베이스 저장 함수
 def save_to_database():
     conn = get_db_connection()  # 데이터베이스 연결
     cursor = conn.cursor()
     for i in range(len(info_personin_companys)):
-            cursor.execute("INSERT INTO jobs (inc, title, subject, qualification, terms, deadline, image_url, domain) VALUES (%s, %s, %s, %s, %s, %s, %s ,%s)",
-                    (info_personin_companys[i], info_personin_titles[i], info_personin_domains[i], info_personin_fields[i], info_personin_qualifications[i], info_personin_conditions[i], info_personin_deadlines[i], info_personin_imgLinks[i]))
-
-
+            cursor.execute("INSERT INTO jobs (inc, title, subject, qualification, terms, deadline, img_link, domain) VALUES (%s, %s, %s, %s, %s, %s, %s ,%s)",
+                    (info_personin_companys[i], info_personin_titles[i], info_personin_fields[i], info_personin_qualifications[i], info_personin_conditions[i], info_personin_deadlines[i], info_personin_imgLinks[i], info_personin_domains[i]))
     
     conn.commit()  # 변경사항을 데이터베이스에 반영
     conn.close()  # 데이터베이스 연결 종료
-
 
 personin_crawling()
 save_to_database()
