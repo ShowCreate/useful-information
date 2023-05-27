@@ -42,36 +42,29 @@ def redirect_domain(domain):
 
 
 
-@app.route('/issue')
-def isue():
+@app.route('/jobs')
+def jobs():
     conn = get_db_connection()
     cursor = conn.cursor()
 
     # contests 테이블에서 데이터 가져오기
-    query = "SELECT * FROM issue"
+    query = "SELECT * FROM jobs"
     cursor.execute(query)
-    issue = cursor.fetchall()
+    jobs = cursor.fetchall()
 
     # 연결 종료
     cursor.close()
     conn.close()
 
-    return render_template('issue.html', issue=issue)
-
-
-
-@app.route('/process_form', methods=['POST'])
-def process_form():
-    input_text = request.form.get('input_text')
-    output_text = input_text.upper()
-    return render_template('result.html', input_text=input_text, output_text=output_text)
+    return render_template('jobs.html', jobs=jobs)
 
 
 #파이썬 스크립트 파일 실행 #
 @app.route('/execute_python_script')
 def execute_python_script():
     # 파이썬 파일 실행
-    subprocess.call(['python', 'static/db/wevity_crawling.py'])
+    subprocess.call(['python', 'static/db/info_crawling.py'])
+    subprocess.call(['python', 'static/db/saram_crawling.py'])
     
         # 응답 생성
     response = {
@@ -81,6 +74,11 @@ def execute_python_script():
     # 실행이 끝나면 JSON 응답 반환
     return jsonify(response)
 
+@app.route('/process_form', methods=['POST'])
+def process_form():
+    input_text = request.form.get('input_text')
+    output_text = input_text.upper()
+    return render_template('result.html', input_text=input_text, output_text=output_text)
 
 
 if __name__ == '__main__':

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {% include 'base/include.html' %}
+    <title>My Website</title>
+  </head>
+  <body>
+    {% include 'base/header.html' %}
+    <main>
+      <h1>직업정보.</h1>
+    
+      <div class="card-container">
+        {% for jobs in jobs %}
+        <div class="card" onclick="openDomain('{{ jobs[8] }}');">
+          <div class="card-header">
+            <h3 class="card-title">
+              {% if jobs[1]|length > 16 %}
+                {{ jobs[1][:16] + '...' }}
+              {% else %}
+                {{ jobs[1] }}
+              {% endif %}
+            </h3>
+          </div>
+          <div class="card-body">
+            <div class="card-image">
+              <img class="card-image-img" src="{{ jobs[7] }}" alt="Card Image" onerror="this.src='/static/img/unknown.png'">
+            </div>
+            <span class="date-value" style="color:rgb(117, 165, 255);font-family:sans-serif;font-weight:bold;">{{ jobs[2] }}</span><br>
+            <span class="card-text" style="color:#868686;">{{ jobs[4] }}</span><br>
+            <span class="card-text" style="color:#9982ff;">[{{ jobs[5] }}]</span><br>
+            <div class="card-dates">
+              <span class="date-value" style="position: absolute;">모집마감일: {{ jobs[6] }}</span>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </main>
+    
+  </body>
+</html>
